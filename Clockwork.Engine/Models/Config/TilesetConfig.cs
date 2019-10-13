@@ -2,7 +2,7 @@
 
 namespace Clockwork.Engine.Models.Config
 {
-    public class TilesetConfig : IConfig
+    public class TileSetConfig : IConfig
     {
         public string Name { get; set; }
         public Size TextureSize { get; set; }

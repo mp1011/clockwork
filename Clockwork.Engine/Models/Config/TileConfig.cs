@@ -1,4 +1,5 @@
 ﻿using Clockwork.Engine.Models.Map;
+using Clockwork.Engine.Models.TileSets;
 
 namespace Clockwork.Engine.Models.Config
 {

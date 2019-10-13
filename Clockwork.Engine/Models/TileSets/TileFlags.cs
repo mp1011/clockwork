@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Clockwork.Engine.Models.Map
+namespace Clockwork.Engine.Models.TileSets
 {
     [Flags]
     public enum TileFlags

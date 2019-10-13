@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
+using Point = Clockwork.Engine.Models.General.Point;
 using Rectangle = Clockwork.Engine.Models.General.Rectangle;
 
 namespace Clockwork.Engine.Extensions
@@ -220,21 +221,6 @@ namespace Clockwork.Engine.Extensions
             return new Vector2(v1.X - v2.X, v1.Y - v2.Y);
         }
 
-        public static Vector2 Translate(this Vector2 v1, Vector2 v2)
-        {
-            return new Vector2(v1.X + v2.X, v1.Y + v2.Y);
-        }
-
-        public static Vector2 Translate(this Vector2 v1, float x, float y)
-        {
-            return new Vector2(v1.X + x, v1.Y + y);
-        }
-
-        public static Vector2 Translate(this Vector2 v1, Point v2)
-        {
-            return new Vector2(v1.X + v2.X, v1.Y + v2.Y);
-        }
-
         public static double GetDegreesTo(this Vector2 v1, Vector2 v2)
         {
             var diff = v2.Subtract(v1);
@@ -291,60 +277,6 @@ namespace Clockwork.Engine.Extensions
         public static Vector2 Flip(this Vector2 v, bool flipX, bool flipY)
         {
             return new Vector2(flipX ? -v.X : v.X, flipY ? -v.Y : v.Y);
-        }
-
-        public static Vector2 ToXY(this int number, int columns)
-        {
-            if (columns <= 0)
-                return new Vector2(number, 0);
-
-            int x = number;
-            int y = 0;
-            while (x >= columns)
-            {
-                x -= columns;
-                y++;
-            }
-            return new Vector2(x, y);
-        }
-
-        public static Vector2 GetAdjacent(this Vector2 vector, Direction dir)
-        {
-            return vector.Translate(dir.ToXY());
-        }
-
-        public static Vector2 GetAdjacent(this Vector2 vector, BorderSide side)
-        {
-            switch (side)
-            {
-                case BorderSide.Top: return vector.Translate(0, -1);
-                case BorderSide.Left: return vector.Translate(-1, 0);
-                case BorderSide.Right: return vector.Translate(1, 0);
-                case BorderSide.Bottom: return vector.Translate(0, 1);
-
-                case BorderSide.TopLeftCorner: return vector.Translate(-1, -1);
-                case BorderSide.TopRightCorner: return vector.Translate(1, -1);
-                case BorderSide.BottomLeftCorner: return vector.Translate(-1, 1);
-                case BorderSide.BottomRightCorner: return vector.Translate(1, 1);
-
-                case BorderSide.None: return vector.Translate(0, 0);
-
-                default: throw new NotImplementedException();
-            }
-        }
-
-        public static Vector2[] GetAdjacentPoints(this Vector2 vector, bool includeDiagonal)
-        {
-            var sides = new List<BorderSide> { BorderSide.Left, BorderSide.Top, BorderSide.Right, BorderSide.Bottom };
-            if (includeDiagonal)
-            {
-                sides.Add(BorderSide.TopLeftCorner);
-                sides.Add(BorderSide.TopRightCorner);
-                sides.Add(BorderSide.BottomLeftCorner);
-                sides.Add(BorderSide.BottomRightCorner);
-            }
-
-            return sides.Select(side => vector.GetAdjacent(side)).ToArray();
         }
 
         public static BorderSide GetBorderSide(this Vector2 vector, Rectangle area)

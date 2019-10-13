@@ -2,9 +2,9 @@
 
 namespace Clockwork.Engine.Services.Interfaces
 {
-    public interface IResourceLoader
+    public interface IResourceStreamProvider
     {
-        T Load<T>(Stream resourceStream);
+        Stream GetStream<T>(string key);
 
         bool SupportsType<T>();
     }

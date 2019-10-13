@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clockwork.Engine", "Clockwork.Engine\Clockwork.Engine.csproj", "{B725CF43-2D60-4718-A6DF-A9FE15117A59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clockwork.Tests", "Clockwork.Tests\Clockwork.Tests.csproj", "{C7EE3A05-73C8-4016-A6AD-AC39F9AE843A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clockwork.MonoGame", "Clockwork.MonoGame\Clockwork.MonoGame.csproj", "{8D2E6C4F-245E-4974-8279-48273C2A4221}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

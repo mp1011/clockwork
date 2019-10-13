@@ -5,34 +5,30 @@ using System.IO;
 
 namespace Clockwork.Engine.Services.Resource
 {
-    public class NewtonsoftJsonService : IJsonService
+    public class NewtonsoftJsonService : IResourceLoader
     {
-        private ResourceLocator _resourceLocator;
-
-        public NewtonsoftJsonService(ResourceLocator resourceLocator)
+        public bool SupportsType<T>()
         {
-            _resourceLocator = resourceLocator;
+            return typeof(IConfig).IsAssignableFrom(typeof(T));
         }
 
-        public T Read<T>(string key)
+        public T Load<T>(Stream stream) 
         {
-            using (var stream = _resourceLocator.GetStream<T>(key))
+            using (var reader = new StreamReader(stream))
             {
-                using (var reader = new StreamReader(stream))
-                {
-                    var json = reader.ReadToEnd();
-                    var item = (T)JsonConvert.DeserializeObject(json);
-                    return item;
-                }
+                var json = reader.ReadToEnd();
+                var item = JsonConvert.DeserializeObject<T>(json);
+                return item;
             }
         }
 
         public void Write<T>(T config) where T : IConfig
         {
-            var key = config.Name;
-            var path = _resourceLocator.GetDevelopmentFilePath<T>(key);
-            var json = JsonConvert.SerializeObject(config);
-            File.WriteAllText(path.FullName, json);
+            throw new System.NotImplementedException();
+            //var key = config.Name;
+            //var path = _resourceLocator.GetDevelopmentFilePath<T>(key);
+            //var json = JsonConvert.SerializeObject(config);
+            //File.WriteAllText(path.FullName, json);
         }
     }
 }

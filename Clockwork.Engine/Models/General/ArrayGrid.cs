@@ -11,26 +11,30 @@ namespace Clockwork.Engine.Models.General
     public class ArrayGrid<T> : IEnumerable<T>
     {
         private T[] Items;
-        public Vector2 Size { get; private set; }
-        public int Columns { get { return (int)Size.X; } }
-        public int Rows { get { return (int)Size.Y; } }
+        public Size GridSize { get; private set; }
+        public int Columns { get { return GridSize.Width; } }
+        public int Rows { get { return GridSize.Height; } }
 
         public T OutOfBoundsFixedValue;
         public bool ReplaceOutOfBoundsTilesWithAdjacent;
 
-        public ArrayGrid(Vector2 size)
+        public ArrayGrid(Size size)
         {
-            Size = size;
-            Items = new T[(int)size.X * (int)size.Y];
+            GridSize = size;
+            Items = new T[size.Width * size.Height];
+        }
+
+        public ArrayGrid(int width, int height) : this (new Size(width,height))
+        {
         }
 
         public ArrayGrid(int columns, IEnumerable<T> items)
         {
             Items = items.ToArray();
             if (columns == 0)
-                Size = Vector2.Zero;
+                GridSize = Size.Empty;
             else
-                Size = new Vector2(columns, Items.Length / columns);
+                GridSize = new Size(columns, Items.Length / columns);
         }
 
         public ArrayGrid<K> Map<K>(Func<T, K> mapping)
@@ -38,7 +42,28 @@ namespace Clockwork.Engine.Models.General
             return new ArrayGrid<K>(Columns, Items.Select(mapping));
         }
 
-        public void Set(Vector2 point, T value)
+        public void Fill(Func<T> constructor)
+        {
+            Fill((int i) => constructor());
+        }
+
+        public void Fill(Func<Point, T> constructor)
+        {
+            foreach (var pt in Points)
+            {
+                Set(pt, constructor(pt));
+            }
+        }
+
+        public void Fill(Func<int, T> constructor)
+        {
+            foreach (var ix in Enumerable.Range(0, Items.Length))
+            {
+                Set(ix, constructor(ix));
+            }
+        }
+
+        public void Set(Point point, T value)
         {
             Set(PointToIndex(point, 0), value);
         }
@@ -48,12 +73,12 @@ namespace Clockwork.Engine.Models.General
             Items[index] = value;
         }
 
-        public Vector2 IndexToPoint(int index)
+        public Point IndexToPoint(int index)
         {
-            return index.ToXY(Columns);
+            return Point.IndexToXY(index, Columns);
         }
 
-        public int PointToIndex(Vector2 point, int outOfBoundsReturn)
+        public int PointToIndex(Point point, int outOfBoundsReturn)
         {
             if (point.X < 0 || point.Y < 0 || point.X >= Columns || point.Y >= Rows)
                 return outOfBoundsReturn;
@@ -74,30 +99,32 @@ namespace Clockwork.Engine.Models.General
         /// <param name="value"></param>
         public void SetBlock(Rectangle block, T value)
         {
-            foreach (var point in block.GetPoints(new Vector2(1, 1)))
-            {
-                Set(point, value);
-            }
+            throw new NotImplementedException();
+            //foreach (var point in block.GetPoints(new Point(1, 1)))
+            //{
+            //    Set(point, value);
+            //}
         }
 
-        public T GetFromPoint(Vector2 p)
+        public T GetFromPoint(Point p)
         {
-            var index = PointToIndex(p, -1);
-            if (index == -1)
-            {
-                if (ReplaceOutOfBoundsTilesWithAdjacent)
-                {
-                    Vector2 adjusted = new Vector2(p.X.KeepInsideRange(0, Size.X - 1), p.Y.KeepInsideRange(0, Size.Y - 1));
-                    return GetFromPoint(adjusted);
-                }
-                else
-                    return OutOfBoundsFixedValue;
-            }
-            else
-                return Items[index];
+            throw new NotImplementedException();
+            //var index = PointToIndex(p, -1);
+            //if (index == -1)
+            //{
+            //    if (ReplaceOutOfBoundsTilesWithAdjacent)
+            //    {
+            //        Point adjusted = new Point(p.X.KeepInsideRange(0, GridSize.Width - 1), p.Y.KeepInsideRange(0, GridSize.Height - 1));
+            //        return GetFromPoint(adjusted);
+            //    }
+            //    else
+            //        return OutOfBoundsFixedValue;
+            //}
+            //else
+            //    return Items[index];
         }
 
-        public T GetFromPointOrDefault(Vector2 p)
+        public T GetFromPointOrDefault(Point p)
         {
             var index = PointToIndex(p, -1);
             if (index == -1)
@@ -114,7 +141,7 @@ namespace Clockwork.Engine.Models.General
             }
         }
 
-        public IEnumerable<Vector2> Points
+        public IEnumerable<Point> Points
         {
             get
             {
@@ -122,15 +149,15 @@ namespace Clockwork.Engine.Models.General
                 {
                     for (int x = 0; x < Columns; x++)
                     {
-                        yield return new Vector2(x, y);
+                        yield return new Point(x, y);
                     }
                 }
             }
         }
 
-        public IEnumerable<ArrayGridPoint<T>> GetPointsInLine(Vector2 start, Direction dir)
+        public IEnumerable<ArrayGridPoint<T>> GetPointsInLine(Point start, Direction dir)
         {
-            Vector2 point = start;
+            Point point = start;
 
             while (PointToIndex(point, -1) != -1)
             {
@@ -160,16 +187,17 @@ namespace Clockwork.Engine.Models.General
 
             top = Math.Max(0, top);
             left = Math.Max(0, left);
-            right = Math.Min((int)Size.X, right);
-            bottom = Math.Min((int)Size.Y, bottom);
+            right = Math.Min(GridSize.Width, right);
+            bottom = Math.Min(GridSize.Height, bottom);
 
-            var ret = new ArrayGrid<T>(new Vector2(right - left, bottom - top));
+            var ret = new ArrayGrid<T>(new Size(right - left, bottom - top));
 
-            foreach (var cell in ret.Points)
-            {
-                var src = GetFromPoint(cell.Translate(left, top));
-                ret.Set(cell, src);
-            }
+            throw new System.NotImplementedException();
+            //foreach (var cell in ret.Points)
+            //{
+            //    var src = GetFromPoint(cell.Translate(left, top));
+            //    ret.Set(cell, src);
+            //}
 
             return ret;
         }

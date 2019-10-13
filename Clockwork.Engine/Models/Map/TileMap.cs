@@ -5,11 +5,11 @@ namespace Clockwork.Engine.Models.Map
 {
     public class TileMap
     {
-        private ArrayGrid<Tile> _grid;
+        public ArrayGrid<Tile> Grid { get; }
 
-        public TileMap(TileMapConfig config)
+        public TileMap(TileMapConfig config, ArrayGrid<Tile> grid)
         {
-
+            Grid = grid;
         }
     }
 }

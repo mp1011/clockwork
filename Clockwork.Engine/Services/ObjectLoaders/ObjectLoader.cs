@@ -1,21 +1,22 @@
 ﻿using Clockwork.Engine.Models.Config;
 using Clockwork.Engine.Services.Interfaces;
+using Clockwork.Engine.Services.Resource;
 
 namespace Clockwork.Engine.Services.ObjectLoaders
 {
     public abstract class ObjectLoader<TConfig,T>
         where TConfig : IConfig
     {
-        private IResourceLoader _resourceLoader;
+        private readonly ResourceService _resourceService;
 
-        public ObjectLoader(IResourceLoader resourceLoader)
+        public ObjectLoader(ResourceService resourceService)
         {
-            _resourceLoader = resourceLoader;
+            _resourceService = resourceService;
         }
 
         public T Load(string key)
         {
-            var config = _resourceLoader.LoadResource<TConfig>(key);
+            var config = _resourceService.LoadResource<TConfig>(key);
             return Create(config);
         }
 

@@ -1,4 +1,6 @@
-﻿using StructureMap;
+﻿using Clockwork.Engine.Services.Interfaces;
+using Clockwork.Engine.Services.Resource;
+using StructureMap;
 
 namespace Clockwork.Engine
 {
@@ -15,6 +17,9 @@ namespace Clockwork.Engine
                     o.TheCallingAssembly();
                     o.WithDefaultConventions();
                     o.RegisterConcreteTypesAgainstTheFirstInterface();
+
+                    o.AddAllTypesOf<IResourceLoader>();
+                    o.AddAllTypesOf<IResourceStreamProvider>();
                 });
             }));
 

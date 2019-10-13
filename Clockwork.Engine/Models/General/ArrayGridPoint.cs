@@ -7,7 +7,7 @@ namespace Clockwork.Engine.Models.General
     public class ArrayGridPoint<T>
     {
         public ArrayGrid<T> Grid;
-        public Vector2 Position;
+        public Point Position;
         public int Index => Grid.PointToIndex(Position, 0);
 
         public T Value;
@@ -17,7 +17,7 @@ namespace Clockwork.Engine.Models.General
             return $"{Position.X},{Position.Y}={Value}";
         }
 
-        public ArrayGridPoint(Vector2 position, ArrayGrid<T> grid)
+        public ArrayGridPoint(Point position, ArrayGrid<T> grid)
         {
             Grid = grid;
             Value = grid.GetFromPoint(position);

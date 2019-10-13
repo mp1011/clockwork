@@ -1,6 +1,5 @@
-﻿using Clockwork.Engine.Models.General;
-using Clockwork.Engine.Models.Interfaces;
-using System.Linq;
+﻿using Clockwork.Engine.Models.GameObjectInterfaces;
+using Clockwork.Engine.Models.General;
 using System.Numerics;
 
 namespace Clockwork.Engine.Extensions
@@ -96,16 +95,16 @@ namespace Clockwork.Engine.Extensions
             }
         }
 
-        public static Vector2 ToXY(this Direction d)
+        public static Point ToXY(this Direction d)
         {
             switch (d)
             {
-                case Direction.Down: return new Vector2(0, 1);
-                case Direction.Left: return new Vector2(-1, 0);
-                case Direction.Right: return new Vector2(1, 0);
-                case Direction.Up: return new Vector2(0, -1);
+                case Direction.Down: return new Point(0, 1);
+                case Direction.Left: return new Point(-1, 0);
+                case Direction.Right: return new Point(1, 0);
+                case Direction.Up: return new Point(0, -1);
                 default:
-                    return Vector2.Zero;
+                    return new Point(0,0);
             }
         }
     }
