@@ -9,6 +9,7 @@ namespace Clockwork.Engine.Models.General
 {
 
     public class ArrayGrid<T> : IEnumerable<T>
+        where T:IWithGridPosition
     {
         private T[] Items;
         public Size GridSize { get; private set; }
@@ -38,6 +39,7 @@ namespace Clockwork.Engine.Models.General
         }
 
         public ArrayGrid<K> Map<K>(Func<T, K> mapping)
+            where K:IWithGridPosition
         {
             return new ArrayGrid<K>(Columns, Items.Select(mapping));
         }
@@ -106,22 +108,27 @@ namespace Clockwork.Engine.Models.General
             //}
         }
 
+        public T GetFromPoint(int x, int y)
+        {
+            return GetFromPoint(new Point(x, y));
+        }
+
         public T GetFromPoint(Point p)
         {
-            throw new NotImplementedException();
-            //var index = PointToIndex(p, -1);
-            //if (index == -1)
-            //{
-            //    if (ReplaceOutOfBoundsTilesWithAdjacent)
-            //    {
-            //        Point adjusted = new Point(p.X.KeepInsideRange(0, GridSize.Width - 1), p.Y.KeepInsideRange(0, GridSize.Height - 1));
-            //        return GetFromPoint(adjusted);
-            //    }
-            //    else
-            //        return OutOfBoundsFixedValue;
-            //}
-            //else
-            //    return Items[index];
+            var index = PointToIndex(p, -1);
+            if (index == -1)
+            {
+                if (ReplaceOutOfBoundsTilesWithAdjacent)
+                {
+                    throw new System.NotImplementedException();
+                    //Point adjusted = new Point(p.X.KeepInsideRange(0, GridSize.Width - 1), p.Y.KeepInsideRange(0, GridSize.Height - 1));
+                    //return GetFromPoint(adjusted);
+                }
+                else
+                    return OutOfBoundsFixedValue;
+            }
+            else
+                return Items[index];
         }
 
         public T GetFromPointOrDefault(Point p)
@@ -131,14 +138,6 @@ namespace Clockwork.Engine.Models.General
                 return default(T);
             else
                 return Items[index];
-        }
-
-        public IEnumerable<ArrayGridPoint<T>> PointItems
-        {
-            get
-            {
-                return Points.Select(p => new ArrayGridPoint<T>(p, this));
-            }
         }
 
         public IEnumerable<Point> Points
@@ -155,17 +154,17 @@ namespace Clockwork.Engine.Models.General
             }
         }
 
-        public IEnumerable<ArrayGridPoint<T>> GetPointsInLine(Point start, Direction dir)
+        public IEnumerable<T> GetPointsInLine(Point start, Direction dir)
         {
             Point point = start;
 
             while (PointToIndex(point, -1) != -1)
             {
-                yield return new ArrayGridPoint<T>(point, this);
+                yield return GetFromPoint(point);
                 point = point.GetAdjacent(dir);
             }
 
-            yield return new ArrayGridPoint<T>(point, this);
+            yield return GetFromPoint(point);
         }
 
         public IEnumerator<T> GetEnumerator()

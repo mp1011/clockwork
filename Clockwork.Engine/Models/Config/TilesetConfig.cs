@@ -9,5 +9,7 @@ namespace Clockwork.Engine.Models.Config
         public Size TileSize { get; set; }
 
         public TileConfig[] Tiles { get; set; }
+
+        public TileRuleSetConfig[] RuleSets { get; set; }
     }
 }

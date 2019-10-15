@@ -14,19 +14,19 @@ namespace Clockwork.Engine.Services.Resource
             _resourceService = resourceService;
         }
 
-        public ArrayGrid<Color> LoadPixels(string key)
+        public ArrayGrid<ObjectWithPosition<Color>> LoadPixels(string key)
         {
-            ArrayGrid<Color> colors = null;
+            ArrayGrid<ObjectWithPosition<Color>> colors = null;
 
             using (var stream = _resourceService.GetStream<Texture>(key))
             {
                 using (var bitmap = new System.Drawing.Bitmap(stream))
                 {
-                    colors = new ArrayGrid<Color>(bitmap.Width, bitmap.Height);
+                    colors = new ArrayGrid<ObjectWithPosition<Color>>(bitmap.Width, bitmap.Height);
                     colors.Fill(pt =>
                     {
                         var color = bitmap.GetPixel(pt.X, pt.Y);
-                        return new Color(color.R, color.G, color.B);
+                        return new ObjectWithPosition<Color>(new Color(color.R, color.G, color.B), pt);
                     });
 
                 }

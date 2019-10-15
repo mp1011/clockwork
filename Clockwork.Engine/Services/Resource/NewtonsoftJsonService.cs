@@ -22,13 +22,11 @@ namespace Clockwork.Engine.Services.Resource
             }
         }
 
-        public void Write<T>(T config) where T : IConfig
+        public void Write<T>(T config, DevelopmentFileStreamProvider streamProvider) where T : IConfig
         {
-            throw new System.NotImplementedException();
-            //var key = config.Name;
-            //var path = _resourceLocator.GetDevelopmentFilePath<T>(key);
-            //var json = JsonConvert.SerializeObject(config);
-            //File.WriteAllText(path.FullName, json);
+            var path = streamProvider.GetDevelopmentFilePath<T>(config.Name);
+            var json = JsonConvert.SerializeObject(config);
+            File.WriteAllText(path.FullName, json);
         }
     }
 }

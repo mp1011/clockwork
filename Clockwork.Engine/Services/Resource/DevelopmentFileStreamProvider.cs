@@ -37,7 +37,7 @@ namespace Clockwork.Engine.Services.Resource
             return folder + "s";
         }
 
-        private FileInfo GetDevelopmentFilePath<T>(string key)
+        public FileInfo GetDevelopmentFilePath<T>(string key)
         {
 #if DEBUG
             var folder = new DirectoryInfo(Path.Combine(_contentDirectory.FullName, GetFolder<T>()));
@@ -53,5 +53,7 @@ namespace Clockwork.Engine.Services.Resource
             var file = GetDevelopmentFilePath<T>(key);
             return file.OpenRead();
         }
+
+        
     }
 }

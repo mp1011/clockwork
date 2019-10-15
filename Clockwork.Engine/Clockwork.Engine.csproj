@@ -56,14 +56,17 @@
     <Compile Include="Models\Config\IConfig.cs" />
     <Compile Include="Models\Config\TileConfig.cs" />
     <Compile Include="Models\Config\TileMapConfig.cs" />
+    <Compile Include="Models\Config\TileRuleConfig.cs" />
+    <Compile Include="Models\Config\TileRuleSetConfig.cs" />
     <Compile Include="Models\Config\TileSetConfig.cs" />
     <Compile Include="Models\General\AnchorOrigin.cs" />
     <Compile Include="Models\General\ArrayGrid.cs" />
-    <Compile Include="Models\General\ArrayGridPoint.cs" />
     <Compile Include="Models\General\Axis.cs" />
     <Compile Include="Models\General\BorderSide.cs" />
     <Compile Include="Models\General\Color.cs" />
     <Compile Include="Models\General\Direction.cs" />
+    <Compile Include="Models\General\IWithGridPosition.cs" />
+    <Compile Include="Models\General\ObjectWithPosition.cs" />
     <Compile Include="Models\General\Point.cs" />
     <Compile Include="Models\General\Rectangle.cs" />
     <Compile Include="Models\General\Size.cs" />
@@ -75,12 +78,16 @@
     <Compile Include="Models\TileSets\TileDescription.cs" />
     <Compile Include="Models\TileSets\TileFlags.cs" />
     <Compile Include="Models\Map\TileMap.cs" />
+    <Compile Include="Models\TileSets\TileLayer.cs" />
+    <Compile Include="Models\TileSets\TilePlacementRule.cs" />
+    <Compile Include="Models\TileSets\TilePlacementRuleSet.cs" />
     <Compile Include="Models\TileSets\TileSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IResourceLoader.cs" />
     <Compile Include="Services\Interfaces\IResourceStreamProvider.cs" />
     <Compile Include="Services\Interfaces\ITextureLoader.cs" />
     <Compile Include="Services\ObjectLoaders\TileSetLoader.cs" />
+    <Compile Include="Services\RandomService.cs" />
     <Compile Include="Services\Resource\DevelopmentFileStreamProvider.cs" />
     <Compile Include="Services\Resource\EmbeddedResourceStreamProvider.cs" />
     <Compile Include="Services\Resource\NewtonsoftJsonService.cs" />
@@ -95,6 +102,9 @@
     <EmbeddedResource Include="Content\TileMaps\testmap.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Content\Textures\forest_tiles.png" />
+    <Content Include="Content\Textures\testmap.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
 ﻿using Clockwork.Engine.Extensions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Clockwork.Engine.Models.General
         public int X { get; }
         public int Y { get; }
 
+        [JsonConstructor]
         public Point(int x, int y)
         {
             X = x;
@@ -21,6 +23,11 @@ namespace Clockwork.Engine.Models.General
         {
             X = (int)x;
             Y = (int)y;
+        }
+
+        public override string ToString()
+        {
+            return $"({X},{Y})";
         }
 
         public static Point IndexToXY(int index, int columns)

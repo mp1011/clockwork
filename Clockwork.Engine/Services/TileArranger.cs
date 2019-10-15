@@ -9,7 +9,22 @@ namespace Clockwork.Engine.Services
     {
         public ArrayGrid<Tile> ArrangeTiles(TileMapConfig map, ArrayGrid<PixelMapPoint> pixelMap, TileSet tileset)
         {
-            return pixelMap.Map(c => new Tile());
+            return pixelMap.Map(c => ChooseTile(c, pixelMap, tileset));
+        }
+
+        public Tile ChooseTile(PixelMapPoint mapPoint, ArrayGrid<PixelMapPoint> pixelMap, TileSet tileset)
+        {
+            var ret = new Tile(mapPoint.Position, tileset.GetEmpty());
+
+            var ruleSet = tileset.GetMatchingRuleset(mapPoint.Color);
+
+            if (ruleSet != null)
+            {
+                foreach (var rule in ruleSet.GetMatchingRules(pixelMap, mapPoint))
+                    ret = rule.Apply(ret, tileset);
+            }
+            
+            return ret;
         }
     }
 }
