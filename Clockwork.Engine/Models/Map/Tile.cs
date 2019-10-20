@@ -5,13 +5,13 @@ namespace Clockwork.Engine.Models.Map
 {
     public class Tile : IWithGridPosition
     {
-        public Point Position { get; }
+        public Point GridPosition { get; }
 
         public TileDescription Description { get; }
 
         public Tile(Point position, TileDescription description)
         {
-            Position = position;
+            GridPosition = position;
             Description = description;
         }
     }

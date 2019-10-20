@@ -28,7 +28,7 @@ namespace Clockwork.Engine.Services.ObjectLoaders
                 tiles.Set(pt, new TileDescription(pt, tile.Flags));
             }
 
-            return new TileSet(tiles, config.RuleSets.Select(r=> new TilePlacementRuleSet(r)).ToArray());
+            return new TileSet(tiles, config.TileSize, config.RuleSets.Select(r=> new TilePlacementRuleSet(r)).ToArray());
         }
     }
 }

@@ -54,6 +54,7 @@
     <Compile Include="Extensions\NumberExtensions.cs" />
     <Compile Include="Extensions\VectorExtensions.cs" />
     <Compile Include="Models\Config\IConfig.cs" />
+    <Compile Include="Models\Config\SceneConfig.cs" />
     <Compile Include="Models\Config\TileConfig.cs" />
     <Compile Include="Models\Config\TileMapConfig.cs" />
     <Compile Include="Models\Config\TileRuleConfig.cs" />
@@ -71,10 +72,16 @@
     <Compile Include="Models\General\Rectangle.cs" />
     <Compile Include="Models\General\Size.cs" />
     <Compile Include="Models\GameObjectInterfaces\IWithPosition.cs" />
+    <Compile Include="Models\Graphics\Camera.cs" />
+    <Compile Include="Models\Graphics\SimpleGraphic.cs" />
+    <Compile Include="Models\Graphics\TextureSection.cs" />
+    <Compile Include="Models\Scene\DisplayLayer.cs" />
+    <Compile Include="Models\Graphics\IDisplayable.cs" />
     <Compile Include="Models\Map\PixelMapPoint.cs" />
     <Compile Include="Models\Map\Tile.cs" />
     <Compile Include="Models\Resource\BitmapTexture.cs" />
     <Compile Include="Models\Resource\ITexture.cs" />
+    <Compile Include="Models\Scene\Scene.cs" />
     <Compile Include="Models\TileSets\TileDescription.cs" />
     <Compile Include="Models\TileSets\TileFlags.cs" />
     <Compile Include="Models\Map\TileMap.cs" />
@@ -83,9 +90,14 @@
     <Compile Include="Models\TileSets\TilePlacementRuleSet.cs" />
     <Compile Include="Models\TileSets\TileSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Factories\SimpleGraphicFactory.cs" />
+    <Compile Include="Services\Graphics\BitmapTexturePainter.cs" />
+    <Compile Include="Services\Graphics\ITexturePainter.cs" />
+    <Compile Include="Services\Graphics\RenderService.cs" />
     <Compile Include="Services\Interfaces\IResourceLoader.cs" />
     <Compile Include="Services\Interfaces\IResourceStreamProvider.cs" />
     <Compile Include="Services\Interfaces\ITextureLoader.cs" />
+    <Compile Include="Services\ObjectLoaders\SceneLoader.cs" />
     <Compile Include="Services\ObjectLoaders\TileSetLoader.cs" />
     <Compile Include="Services\RandomService.cs" />
     <Compile Include="Services\Resource\DevelopmentFileStreamProvider.cs" />
@@ -100,11 +112,13 @@
   <ItemGroup>
     <EmbeddedResource Include="Content\TileSets\forest_tiles.config" />
     <EmbeddedResource Include="Content\TileMaps\testmap.config" />
+    <EmbeddedResource Include="Content\Scenes\testScene.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Textures\forest_tiles.png" />
     <Content Include="Content\Textures\testmap.bmp" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

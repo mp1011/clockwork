@@ -75,6 +75,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

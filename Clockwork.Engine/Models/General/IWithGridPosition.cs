@@ -2,6 +2,6 @@
 {
     public interface IWithGridPosition
     {
-        Point Position { get; }
+        Point GridPosition { get; }
     }
 }

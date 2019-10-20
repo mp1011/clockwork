@@ -60,7 +60,7 @@ namespace Clockwork.Engine.Models.TileSets
 
             foreach (var side in requiredNeighbors.Keys)
             {
-                var neighbor = map.GetFromPoint(mapPoint.Position.GetAdjacent(side));
+                var neighbor = map.GetFromPoint(mapPoint.GridPosition.GetAdjacent(side));
                 if (neighbor != null)
                 {
                     var requiredNeighborTags = requiredNeighbors[side];
@@ -97,7 +97,7 @@ namespace Clockwork.Engine.Models.TileSets
                     //    return ret;
                     //}
                 default:
-                    return new Tile(current.Position, tileDescription);
+                    return new Tile(current.GridPosition, tileDescription);
             }
 
         }

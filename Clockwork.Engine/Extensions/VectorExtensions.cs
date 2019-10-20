@@ -227,6 +227,11 @@ namespace Clockwork.Engine.Extensions
             var ret = diff.GetDegrees();
             return ret;
         }
+        
+        public static Vector2 Translate(this Vector2 v, Vector2 v2)
+        {
+            return new Vector2(v.X + v2.X, v.Y + v2.Y);
+        }
 
         public static Rectangle ToGridCell(this Vector2 v, Vector2 cellSize)
         {

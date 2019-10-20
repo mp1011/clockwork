@@ -14,6 +14,17 @@ namespace Clockwork.Engine.Services.Resource
             _resourceService = resourceService;
         }
 
+        public Size GetTextureSize(string key)
+        {
+            using (var stream = _resourceService.GetStream<Texture>(key))
+            {
+                using (var bitmap = new System.Drawing.Bitmap(stream))
+                {
+                    return new Size(bitmap.Width, bitmap.Height);
+                }
+            }
+        }
+
         public ArrayGrid<ObjectWithPosition<Color>> LoadPixels(string key)
         {
             ArrayGrid<ObjectWithPosition<Color>> colors = null;

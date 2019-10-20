@@ -9,10 +9,13 @@ namespace Clockwork.Engine.Models.TileSets
         private readonly ArrayGrid<TileDescription> _tiles;
         private readonly TilePlacementRuleSet[] _tilePlacementRules;
 
-        public TileSet(ArrayGrid<TileDescription> tiles, TilePlacementRuleSet[] tilePlacementRules)
+        public Size TileSize { get; }
+
+        public TileSet(ArrayGrid<TileDescription> tiles, Size tileSize, TilePlacementRuleSet[] tilePlacementRules)
         {
             _tiles = tiles;
             _tilePlacementRules = tilePlacementRules;
+            TileSize = tileSize;
         }
 
         public TileDescription GetEmpty()

@@ -5,5 +5,6 @@ namespace Clockwork.Engine.Services.Interfaces
     public interface ITextureLoader
     {
         ArrayGrid<ObjectWithPosition<Color>> LoadPixels(string key);
+        Size GetTextureSize(string key);
     }
 }

@@ -14,7 +14,7 @@ namespace Clockwork.Engine.Services
 
         public Tile ChooseTile(PixelMapPoint mapPoint, ArrayGrid<PixelMapPoint> pixelMap, TileSet tileset)
         {
-            var ret = new Tile(mapPoint.Position, tileset.GetEmpty());
+            var ret = new Tile(mapPoint.GridPosition, tileset.GetEmpty());
 
             var ruleSet = tileset.GetMatchingRuleset(mapPoint.Color);
 

@@ -39,6 +39,8 @@ namespace Clockwork.Engine.Models.General
         public double Width { get { return Right - Left; } }
         public double Height { get { return Bottom - Top; } }
 
+        public Size Size => new Size((int)Width, (int)Height);
+
         public Rectangle() { }
 
         public Rectangle(double x, double y, double w, double h)
@@ -53,6 +55,20 @@ namespace Clockwork.Engine.Models.General
         {
             Right = size.X;
             Bottom = size.Y;
+        }
+
+        public Rectangle(Size size)
+        {
+            Right = size.Width;
+            Bottom = size.Height;
+        }
+
+        public Rectangle(Point upperLeft, Size size)
+        {
+            Left = upperLeft.X;
+            Top = upperLeft.Y;
+            Right = upperLeft.X+size.Width;
+            Bottom = upperLeft.Y+size.Height;
         }
 
         public void Set(double x, double y, double w, double h)
@@ -364,7 +380,7 @@ namespace Clockwork.Engine.Models.General
 
         #endregion
 
-        public bool CollidesWith(Rectangle other, bool ignoreEdges)
+        public bool CollidesWith(Rectangle other, bool ignoreEdges=false)
         {
             if (ignoreEdges)
                 return (Bottom > other.Top && Top < other.Bottom && Right > other.Left && Left < other.Right);

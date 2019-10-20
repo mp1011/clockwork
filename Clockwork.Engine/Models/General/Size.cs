@@ -21,6 +21,11 @@ namespace Clockwork.Engine.Models.General
         public int Width { get; }
         public int Height { get; }
 
+        public Size Scale(Size other)
+        {
+            return new Size(Width * other.Width, Height * other.Height);
+        }
+
         public static Size Empty { get; } = new Size(0, 0);
     }
 }

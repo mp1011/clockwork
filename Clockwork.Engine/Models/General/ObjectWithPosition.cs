@@ -2,13 +2,13 @@
 {
     public class ObjectWithPosition<T> : IWithGridPosition
     {
-        public Point Position { get; }
+        public Point GridPosition { get; }
         public T Item { get;
         }
         public ObjectWithPosition(T item, Point position)
         {
             Item = item;
-            Position = position;
+            GridPosition = position;
         }
     }
 }

@@ -23,13 +23,13 @@ namespace Clockwork.Engine.Services.ObjectLoaders
             _textureLoader = textureLoader;
         }
 
-        private ArrayGrid<PixelMapPoint> GetPixelMap(TileMapConfig map, TileSet tileSet)
+        public ArrayGrid<PixelMapPoint> GetPixelMap(TileMapConfig map, TileSet tileSet)
         {
             var colors = _textureLoader.LoadPixels(map.Name);
             return colors.Map(color =>
             {
                 var tileRule = tileSet.GetMatchingRuleset(color.Item);
-                return new PixelMapPoint(color.Item, color.Position, tileRule?.Tags ?? new string[] { "background","empty" });
+                return new PixelMapPoint(color.Item, color.GridPosition, tileRule?.Tags ?? new string[] { "background","empty" });
             });
         }
 
@@ -38,7 +38,7 @@ namespace Clockwork.Engine.Services.ObjectLoaders
             var tileSet = _tileSetLoader.Load(config.TilesetName);
             var pixelMap = GetPixelMap(config, tileSet);
             var tiles = _tileArranger.ArrangeTiles(config, pixelMap, tileSet);
-            return new TileMap(config, tiles);
+            return new TileMap(config, tileSet, tiles);
         }
     }
 }

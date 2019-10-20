@@ -13,6 +13,10 @@ namespace Clockwork.MonoGame
         public static void Main(string[] args)
         {
             BootstrapModels();
+
+            using (var game = new Engine.GameEngine())
+                game.Run();
+
         }
 
         /// <summary>
@@ -23,13 +27,20 @@ namespace Clockwork.MonoGame
             var jsonservice = DIRegistrar.GetInstance<NewtonsoftJsonService>();
             var streamProvider = DIRegistrar.GetInstance<DevelopmentFileStreamProvider>();
 
+            jsonservice.Write(new SceneConfig
+            {
+                Name = "testScene",
+                TileMap = "testmap"
+
+            }, streamProvider);
+
             jsonservice.Write(new TileMapConfig
             {
                 Name = "testmap",
                 TilesetName = "forest_tiles",
             }, streamProvider);
 
-            jsonservice.Write(new Engine.Models.Config.TileSetConfig
+            jsonservice.Write(new TileSetConfig
             {
                 Name = "forest_tiles",
                 TextureSize = new Size(160, 128),

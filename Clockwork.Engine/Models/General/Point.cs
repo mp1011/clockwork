@@ -19,6 +19,10 @@ namespace Clockwork.Engine.Models.General
             Y = y;
         }
 
+        private static Point _zero = new Point(0, 0);
+
+        public static Point Zero => _zero;
+
         public Point(float x, float y)
         {
             X = (int)x;
@@ -63,6 +67,11 @@ namespace Clockwork.Engine.Models.General
         public Point GetAdjacent(Direction dir)
         {
             return Translate(dir.ToXY());
+        }
+
+        public Point Scale(Size size)
+        {
+            return new Point(X * size.Width, Y * size.Height);
         }
 
         public Point GetAdjacent(BorderSide side)
