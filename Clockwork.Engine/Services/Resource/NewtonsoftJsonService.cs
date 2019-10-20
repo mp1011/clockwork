@@ -7,18 +7,28 @@ namespace Clockwork.Engine.Services.Resource
 {
     public class NewtonsoftJsonService : IResourceLoader
     {
+        private IResourceStreamProvider _streamProvider;
+
+        public NewtonsoftJsonService(EmbeddedResourceStreamProvider streamProvider)
+        {
+            _streamProvider = streamProvider;
+        }
+
         public bool SupportsType<T>()
         {
             return typeof(IConfig).IsAssignableFrom(typeof(T));
         }
 
-        public T Load<T>(Stream stream) 
+        public T Load<T>(string key) 
         {
-            using (var reader = new StreamReader(stream))
+            using (var stream = _streamProvider.GetStream<T>(key))
             {
-                var json = reader.ReadToEnd();
-                var item = JsonConvert.DeserializeObject<T>(json);
-                return item;
+                using (var reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    var item = JsonConvert.DeserializeObject<T>(json);
+                    return item;
+                }
             }
         }
 

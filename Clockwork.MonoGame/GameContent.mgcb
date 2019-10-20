@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ..\Clockwork.Engine\Content\Maps\testmap.bmp
+#begin ..\Clockwork.Engine\Content\Textures\forest_tiles.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,9 +23,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:..\Clockwork.Engine\Content\Maps\testmap.bmp
+/build:..\Clockwork.Engine\Content\Textures\forest_tiles.png
 
-#begin ..\Clockwork.Engine\Content\Tilesets\forest_tiles.png
+#begin ..\Clockwork.Engine\Content\Textures\testmap.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -35,5 +35,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:..\Clockwork.Engine\Content\Tilesets\forest_tiles.png
+/build:..\Clockwork.Engine\Content\Textures\testmap.bmp
 

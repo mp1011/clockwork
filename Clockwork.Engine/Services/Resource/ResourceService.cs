@@ -7,29 +7,16 @@ namespace Clockwork.Engine.Services.Resource
     public class ResourceService
     {
         private readonly IResourceLoader[] _loaders;
-        private readonly IResourceStreamProvider[] _streamProviders;
 
-        public ResourceService(IResourceLoader[] loaders, IResourceStreamProvider[] streamProviders)
+        public ResourceService(IResourceLoader[] loaders)
         {
             _loaders = loaders;
-            _streamProviders = streamProviders;
         }
 
-        public Stream GetStream<T>(string key)
-        {
-            var provider = _streamProviders.Single(p => p.SupportsType<T>());
-            return provider.GetStream<T>(key);
-        }
-
-        public T LoadResource<T>(string key)
+        public T LoadResource<T>(string key=null)
         {
             var loader = _loaders.Single(p => p.SupportsType<T>());
-
-            using (var stream = GetStream<T>(key))
-            {
-                var item = loader.Load<T>(stream);
-                return item;
-            }
+            return loader.Load<T>(key);
         }
     }
 }

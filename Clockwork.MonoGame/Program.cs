@@ -3,8 +3,12 @@ using Clockwork.Engine.Models.Config;
 using Clockwork.Engine.Models.General;
 using Clockwork.Engine.Models.Map;
 using Clockwork.Engine.Models.TileSets;
+using Clockwork.Engine.Services.Graphics;
 using Clockwork.Engine.Services.Interfaces;
 using Clockwork.Engine.Services.Resource;
+using Clockwork.MonoGame.Engine;
+using Clockwork.MonoGame.Implementations;
+using FluentAssertions;
 
 namespace Clockwork.MonoGame
 {
@@ -12,11 +16,20 @@ namespace Clockwork.MonoGame
     {
         public static void Main(string[] args)
         {
-            BootstrapModels();
-
-            using (var game = new Engine.GameEngine())
+            //BootstrapModels();
+            IOCInit();
+            using (var game = DIRegistrar.GetInstance<GameEngine>())
                 game.Run();
 
+        }
+
+        private static void IOCInit()
+        {
+            DIRegistrar.EngineAssembly = typeof(XNATexturePainter).Assembly;
+
+            DIRegistrar.GetInstance<ITexturePainter>()
+                .Should()
+                .BeOfType<XNATexturePainter>();
         }
 
         /// <summary>

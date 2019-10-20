@@ -32,7 +32,11 @@ namespace Clockwork.Engine.Services.Resource
 
         public Stream GetStream<T>(string key)
         {
-            var suffix = $"{GetFolder<T>()}.{key}.config";
+            string suffix;
+            if (key != null)
+                suffix = $"{GetFolder<T>()}.{key}.config";
+            else
+                suffix = typeof(T).Name.Replace("Config", ".config");
 
             var name = _resourceNames.Single(p => p.EndsWith(suffix));
             return _assembly.GetManifestResourceStream(name);

@@ -31,6 +31,9 @@ namespace Clockwork.Engine.Services.Resource
 
         private string GetFolder<T>()
         {
+            if (typeof(T) == typeof(System.Drawing.Bitmap))
+                return "Textures";
+
             var folder = typeof(T).Name;
             if (folder.EndsWith("Config"))
                 folder = folder.Replace("Config", "");

@@ -1,8 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Clockwork.Engine.Services;
+using Clockwork.Engine.Services.Graphics;
+using Clockwork.Engine.Services.ObjectLoaders;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,15 +18,38 @@ namespace Clockwork.MonoGame.Engine
     /// </summary>
     public class GameEngine : Game
     {
+        private RenderService _renderService;
+        private SceneManager _sceneManager;
+        private ContentManagerProvider _contentManagerProvider;
+
         #region Setup
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        public GameEngine()
+        public GameEngine(RenderService renderService, SceneManager sceneManager, 
+            ContentManagerProvider contentManagerProvider )
         {
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            Content.RootDirectory = FindContentFolder().FullName;
+
+            _renderService = renderService;
+            _sceneManager = sceneManager;
+            _contentManagerProvider = contentManagerProvider;
+        }
+
+        private DirectoryInfo FindContentFolder()
+        {
+            var directory = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory;
+
+            while (true)
+            {
+                var contentFolder = new DirectoryInfo(directory.FullName + @"\Clockwork.Engine\Content");
+                if (contentFolder.Exists)
+                    return contentFolder;
+                else
+                    directory = directory.Parent;
+            }
         }
 
         /// <summary>
@@ -32,11 +60,9 @@ namespace Clockwork.MonoGame.Engine
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            _contentManagerProvider.ContentManager = Content;
+            _sceneManager.LoadInitialScene();
             base.Initialize();
-            //LogicManager.Reset();
-            //SceneLoader.Load("start"); //todo- config
         }
 
         /// <summary>
@@ -45,13 +71,7 @@ namespace Clockwork.MonoGame.Engine
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            //IOC.InitXNA(Content, spriteBatch);
-            //displayEngine = IOC.Get<DisplayEngine>();
-
-            //new XNAAudioEngine(this.Content);
         }
 
         /// <summary>
@@ -100,6 +120,11 @@ namespace Clockwork.MonoGame.Engine
             //    return;
 
             GraphicsDevice.Clear(Color.Red);
+
+            var scene = _sceneManager.GetCurrentScene();
+            _renderService.RenderScene(null, scene);
+
+
             //displayEngine.WindowPosition.Set(Window.ClientBounds);
 
             //if (RenderTarget == null)
