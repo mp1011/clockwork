@@ -1,6 +1,9 @@
-﻿using Clockwork.Engine.Services;
+﻿using Clockwork.Engine.Models.General;
+using Clockwork.Engine.Services;
 using Clockwork.Engine.Services.Graphics;
+using Clockwork.Engine.Services.Interfaces;
 using Clockwork.Engine.Services.ObjectLoaders;
+using Clockwork.MonoGame.Implementations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -18,24 +21,29 @@ namespace Clockwork.MonoGame.Engine
     /// </summary>
     public class GameEngine : Game
     {
+        public SpriteBatch SpriteBatch { get; private set; }
+
         private RenderService _renderService;
         private SceneManager _sceneManager;
         private ContentManagerProvider _contentManagerProvider;
+        private XNAGraphicsInfoProvider _graphicsInfoProvider;
+        private GraphicsDeviceManager _graphics; 
+        private RenderTarget2D _renderTarget;
 
         #region Setup
 
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-
-        public GameEngine(RenderService renderService, SceneManager sceneManager, 
-            ContentManagerProvider contentManagerProvider )
+        public GameEngine(RenderService renderService, 
+            SceneManager sceneManager, 
+            ContentManagerProvider contentManagerProvider, 
+            XNAGraphicsInfoProvider graphicsInfoProvider)
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = FindContentFolder().FullName;
 
             _renderService = renderService;
             _sceneManager = sceneManager;
             _contentManagerProvider = contentManagerProvider;
+            _graphicsInfoProvider = graphicsInfoProvider;
         }
 
         private DirectoryInfo FindContentFolder()
@@ -62,6 +70,7 @@ namespace Clockwork.MonoGame.Engine
         {
             _contentManagerProvider.ContentManager = Content;
             _sceneManager.LoadInitialScene();
+            _graphicsInfoProvider.SetGame(this);
             base.Initialize();
         }
 
@@ -71,7 +80,7 @@ namespace Clockwork.MonoGame.Engine
         /// </summary>
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
         /// <summary>
@@ -108,8 +117,6 @@ namespace Clockwork.MonoGame.Engine
 
         #region Rendering
 
-        private RenderTarget2D RenderTarget;
-
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -119,34 +126,29 @@ namespace Clockwork.MonoGame.Engine
             //if (displayEngine.Painter.Camera == null)
             //    return;
 
-            GraphicsDevice.Clear(Color.Red);
+             
+       
+            if (_renderTarget == null)
+                _renderTarget = new RenderTarget2D(GraphicsDevice, Window.ClientBounds.Width, Window.ClientBounds.Height);
 
+            GraphicsDevice.SetRenderTarget(_renderTarget);
+            GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.Red);
+
+            SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
             var scene = _sceneManager.GetCurrentScene();
-            _renderService.RenderScene(null, scene);
-
-
-            //displayEngine.WindowPosition.Set(Window.ClientBounds);
-
-            //if (RenderTarget == null)
-            //    RenderTarget = new RenderTarget2D(GraphicsDevice, Window.ClientBounds.Width, Window.ClientBounds.Height);
-
-            //GraphicsDevice.SetRenderTarget(RenderTarget);
-            //GraphicsDevice.Clear(displayEngine.BackgroundColor);
-            //spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            //displayEngine.DrawFrame();
-            //spriteBatch.End();
+            _renderService.RenderScene(scene);
+            SpriteBatch.End();
 
             //var window = displayEngine.WindowPosition;
-
             //var cameraPosition = displayEngine.Painter.Camera.Position;
             //var scale = new Vector2((float)window.Width / (float)cameraPosition.Width, (float)window.Height / (float)cameraPosition.Height);
 
-            //Matrix m = Matrix.CreateScale(scale.X, scale.Y, 1f);
-            //this.GraphicsDevice.SetRenderTarget(null);
-            //this.GraphicsDevice.Clear(Color.Red);
-            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.Default, RasterizerState.CullNone, null, m);
-            //spriteBatch.Draw(RenderTarget, Vector2.Zero, Color.White);
-            //spriteBatch.End();
+            Matrix m = Matrix.CreateScale(1f,1f, 1f);
+            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.Red);
+            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.Default, RasterizerState.CullNone, null, m);
+            SpriteBatch.Draw(_renderTarget, Vector2.Zero, Microsoft.Xna.Framework.Color.White);
+            SpriteBatch.End();
 
             base.Draw(gameTime);
         }

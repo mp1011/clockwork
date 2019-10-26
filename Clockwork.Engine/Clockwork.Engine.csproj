@@ -92,8 +92,11 @@
     <Compile Include="Models\TileSets\TileSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Factories\SimpleGraphicFactory.cs" />
-    <Compile Include="Services\Graphics\ITexturePainter.cs" />
+    <Compile Include="Services\FixedCameraProvider.cs" />
+    <Compile Include="Services\Interfaces\IGraphicsInfoProvider.cs" />
+    <Compile Include="Services\Interfaces\ITexturePainter.cs" />
     <Compile Include="Services\Graphics\RenderService.cs" />
+    <Compile Include="Services\Interfaces\ICameraProvider.cs" />
     <Compile Include="Services\Interfaces\IResourceLoader.cs" />
     <Compile Include="Services\Interfaces\IResourceStreamProvider.cs" />
     <Compile Include="Services\Interfaces\ITextureLoader.cs" />

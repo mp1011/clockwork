@@ -1,6 +1,8 @@
 ﻿using Clockwork.Engine.Services.Interfaces;
 using Clockwork.Engine.Services.Resource;
 using StructureMap;
+using StructureMap.Graph;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -11,6 +13,8 @@ namespace Clockwork.Engine
         private static Container _container;
 
         public static Assembly EngineAssembly { get; set; }
+
+        public static Action<ConfigurationExpression> CustomBindings { get; set; }
 
         private static Container GetContainer()
         {
@@ -24,13 +28,18 @@ namespace Clockwork.Engine
 
                     o.WithDefaultConventions();
                     o.RegisterConcreteTypesAgainstTheFirstInterface();
-
+                    
                     o.AddAllTypesOf<IResourceLoader>();
                     o.AddAllTypesOf<IResourceStreamProvider>();
                 });
-            }));
 
+
+                CustomBindings?.Invoke(c);
+
+            }));
         }
+
+       
         public static T GetInstance<T>()
         {
             return GetContainer().GetInstance<T>();

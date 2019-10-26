@@ -1,5 +1,5 @@
 ﻿using Clockwork.Engine.Models.General;
-using Clockwork.Engine.Services.Graphics;
+using Clockwork.Engine.Services.Interfaces;
 using NSubstitute;
 using System;
 

@@ -1,6 +1,7 @@
 ﻿using Clockwork.Engine.Models.General;
 using Clockwork.Engine.Models.Graphics;
 using Clockwork.Engine.Models.Scene;
+using Clockwork.Engine.Services.Interfaces;
 
 namespace Clockwork.Engine.Services.Graphics
 {
@@ -8,14 +9,17 @@ namespace Clockwork.Engine.Services.Graphics
     {
 
         private ITexturePainter _texturePainter;
+        private ICameraProvider _cameraProvider;
 
-        public RenderService(ITexturePainter texturePainter)
+        public RenderService(ITexturePainter texturePainter, ICameraProvider cameraProvider)
         {
             _texturePainter = texturePainter;
+            _cameraProvider = cameraProvider;
         }
 
-        public void RenderScene(Camera camera, Scene scene)
+        public void RenderScene(Scene scene)
         {
+            var camera = _cameraProvider.GetCameraForScene(scene);
             foreach(var layer in scene.Layers)
             {
                 foreach(var displayable in layer.DisplayItems)

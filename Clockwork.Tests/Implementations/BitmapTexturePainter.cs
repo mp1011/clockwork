@@ -1,4 +1,5 @@
 ﻿using Clockwork.Engine.Models.General;
+using Clockwork.Engine.Services.Interfaces;
 
 namespace Clockwork.Engine.Services.Graphics
 {

@@ -26,10 +26,19 @@ namespace Clockwork.MonoGame
         private static void IOCInit()
         {
             DIRegistrar.EngineAssembly = typeof(XNATexturePainter).Assembly;
+            DIRegistrar.CustomBindings = c =>
+            {
+                c.For<ITextureLoader>().Use<XNATextureLoader>();
+                c.ForConcreteType<XNAGraphicsInfoProvider>().Configure.Singleton();
+            };
 
             DIRegistrar.GetInstance<ITexturePainter>()
                 .Should()
                 .BeOfType<XNATexturePainter>();
+
+            var gp1 = DIRegistrar.GetInstance<IGraphicsInfoProvider>();
+            var gp2 = DIRegistrar.GetInstance<IGraphicsInfoProvider>();
+            gp1.GetHashCode().Should().Be(gp2.GetHashCode());
         }
 
         /// <summary>

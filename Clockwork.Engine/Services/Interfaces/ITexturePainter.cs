@@ -1,6 +1,6 @@
 ﻿using Clockwork.Engine.Models.General;
 
-namespace Clockwork.Engine.Services.Graphics
+namespace Clockwork.Engine.Services.Interfaces
 {
     public interface ITexturePainter
     {

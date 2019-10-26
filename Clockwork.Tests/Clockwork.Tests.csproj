@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Implementations\BitmapTextureLoader.cs" />
     <Compile Include="Implementations\BitmapTexturePainter.cs" />
+    <Compile Include="MockFactories\ICameraProviderFactory.cs" />
     <Compile Include="MockFactories\ITexturePainterMockFactory.cs" />
     <Compile Include="Models\Graphics\CameraTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

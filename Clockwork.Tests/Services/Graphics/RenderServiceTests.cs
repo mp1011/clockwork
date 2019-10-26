@@ -40,8 +40,8 @@ namespace Clockwork.Tests.Services.Graphics
                     }
                 });
 
-            var svc = new RenderService(mockPainter);
             var camera = new Camera(new Size(320, 240));
+            var svc = new RenderService(mockPainter, ICameraProviderFactory.Create(camera));
             svc.RenderObject(camera, map);
 
             hit1.Should().BeTrue();
@@ -59,9 +59,9 @@ namespace Clockwork.Tests.Services.Graphics
                     Assert.Fail();
                 });
 
-            var svc = new RenderService(mockPainter);
-            var drawable = DIRegistrar.GetInstance<SimpleGraphicFactory>().Create(texture);
             var camera = new Camera(new Size(320, 240));
+            var svc = new RenderService(mockPainter, ICameraProviderFactory.Create(camera));
+            var drawable = DIRegistrar.GetInstance<SimpleGraphicFactory>().Create(texture);
             drawable.Position.SetLeft(-500);
             svc.RenderObject(camera, drawable);
         }
@@ -82,8 +82,8 @@ namespace Clockwork.Tests.Services.Graphics
                     }
                 });
 
-            var svc = new RenderService(mockPainter);
-            svc.RenderScene(new Camera(new Size(320, 240)), scene);
+            var svc = new RenderService(mockPainter, ICameraProviderFactory.Create());
+            svc.RenderScene(scene);
             hit.Should().BeTrue();
         }
 
@@ -101,9 +101,10 @@ namespace Clockwork.Tests.Services.Graphics
                     destination.Right.Should().Be(260);
                 });
 
-            var svc = new RenderService(mockPainter);
-            var drawable = DIRegistrar.GetInstance<SimpleGraphicFactory>().Create(texture);
             var camera = new Camera(new Size(320, 240));
+            var svc = new RenderService(mockPainter, ICameraProviderFactory.Create(camera));
+            var drawable = DIRegistrar.GetInstance<SimpleGraphicFactory>().Create(texture);
+ 
             drawable.Position.SetLeft(100);
             svc.RenderObject(camera, drawable);
         }

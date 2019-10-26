@@ -49,6 +49,20 @@ namespace Clockwork.Engine.Models.General
             return new Point(x, y);
         }
 
+        /// <summary>
+        /// Returns the point to the right of this one. 
+        /// If that is beyond the given column, returns the first point in the next row.
+        /// </summary>
+        /// <param name="columns"></param>
+        /// <returns></returns>
+        public Point GridStep(int columns)
+        {
+            if (X >= columns-1)
+                return new Point(0, Y + 1);
+            else
+                return Translate(1, 0); 
+        }
+
         public Point Translate(Vector2 v2)
         {
             return new Point(X + v2.X, Y + v2.Y);
