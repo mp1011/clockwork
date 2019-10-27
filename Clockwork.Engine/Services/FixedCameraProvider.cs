@@ -1,4 +1,5 @@
-﻿using Clockwork.Engine.Models.Graphics;
+﻿using Clockwork.Engine.Models.General;
+using Clockwork.Engine.Models.Graphics;
 using Clockwork.Engine.Models.Scene;
 using Clockwork.Engine.Services.Interfaces;
 
@@ -16,7 +17,11 @@ namespace Clockwork.Engine.Services
 
         public Camera GetCameraForScene(Scene scene)
         {
-            return _camera ?? (_camera = new Camera(_graphicsInfoProvider.ViewportSize));
+            return _camera ?? (_camera = new Camera
+                (
+                    screenSize:_graphicsInfoProvider.ViewportSize, 
+                    bounds: new Rectangle(scene.Bounds)
+                ));
         }
     }
 }

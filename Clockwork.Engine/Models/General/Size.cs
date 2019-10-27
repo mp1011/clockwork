@@ -17,6 +17,12 @@ namespace Clockwork.Engine.Models.General
             Height = (int)height;
         }
 
+        public Size(double width, double height)
+        {
+            Width = (int)width;
+            Height = (int)height;
+        }
+
 
         public int Width { get; }
         public int Height { get; }

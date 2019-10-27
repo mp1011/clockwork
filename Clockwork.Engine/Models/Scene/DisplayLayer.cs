@@ -10,7 +10,7 @@ namespace Clockwork.Engine.Models.Scene
 
         public IDisplayable[] DisplayItems { get; }
 
-        public DisplayLayer(Size size, IDisplayable[] items)
+        public DisplayLayer(Size size, params IDisplayable[] items)
         {
             Position = new Rectangle(size);
             DisplayItems = items;

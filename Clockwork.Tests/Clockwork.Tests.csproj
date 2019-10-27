@@ -72,7 +72,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CollisionManagerTests.cs" />
     <Compile Include="Services\Graphics\RenderServiceTests.cs" />
-    <Compile Include="Services\LogicManagerTests.cs" />
     <Compile Include="Services\MapLoaderTests.cs" />
     <Compile Include="Services\MotionManagerTests.cs" />
     <Compile Include="Services\SceneManagerTests.cs" />

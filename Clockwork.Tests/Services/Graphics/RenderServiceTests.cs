@@ -40,7 +40,7 @@ namespace Clockwork.Tests.Services.Graphics
                     }
                 });
 
-            var camera = new Camera(new Size(320, 240));
+            var camera = new Camera(new Size(320, 240), new Rectangle(0,0,1000,1000));
             var svc = new RenderService(mockPainter, ICameraProviderFactory.Create(camera));
             svc.RenderObject(camera, map);
 
@@ -59,7 +59,7 @@ namespace Clockwork.Tests.Services.Graphics
                     Assert.Fail();
                 });
 
-            var camera = new Camera(new Size(320, 240));
+            var camera = new Camera(new Size(320, 240), new Rectangle(0, 0, 1000, 1000));
             var svc = new RenderService(mockPainter, ICameraProviderFactory.Create(camera));
             var drawable = DIRegistrar.GetInstance<SimpleGraphicFactory>().Create(texture);
             drawable.Position.SetLeft(-500);
@@ -101,7 +101,7 @@ namespace Clockwork.Tests.Services.Graphics
                     destination.Right.Should().Be(260);
                 });
 
-            var camera = new Camera(new Size(320, 240));
+            var camera = new Camera(new Size(320, 240), new Rectangle(0, 0, 1000, 1000));
             var svc = new RenderService(mockPainter, ICameraProviderFactory.Create(camera));
             var drawable = DIRegistrar.GetInstance<SimpleGraphicFactory>().Create(texture);
  

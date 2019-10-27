@@ -13,7 +13,7 @@ namespace Clockwork.Tests.Models.Graphics
         [TestCase(0, -25, 100, 125)]
         public void GetScreenPositionFromWorldPosition(int cameraX, int cameraY, int screenX, int screenY)
         {
-            var camera = new Camera(new Size(320, 240));
+            var camera = new Camera(new Size(320, 240), new Rectangle(0, 0, 1000, 1000));
             camera.Position.UpperLeft = new Vector2(cameraX, cameraY);
 
             var worldPos = new Rectangle(100, 100, 25, 25);

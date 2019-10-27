@@ -10,7 +10,7 @@ namespace Clockwork.Tests.MockFactories
     {
         public static ICameraProvider Create()
         {
-            return Create(new Camera(new Size(320, 240)));
+            return Create(new Camera(new Size(320, 240), new Rectangle(0,0,1000,1000)));
         }
 
         public static ICameraProvider Create(Camera camera)
