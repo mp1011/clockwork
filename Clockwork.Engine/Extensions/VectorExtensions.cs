@@ -233,6 +233,11 @@ namespace Clockwork.Engine.Extensions
             return new Vector2(v.X + v2.X, v.Y + v2.Y);
         }
 
+        public static Vector2 Translate(this Vector2 v, Point p)
+        {
+            return new Vector2(v.X + p.X, v.Y + p.Y);
+        }
+
         public static Rectangle ToGridCell(this Vector2 v, Vector2 cellSize)
         {
             return new Rectangle(v.X * cellSize.X, v.Y * cellSize.Y, cellSize.X, cellSize.Y);

@@ -7,7 +7,7 @@ namespace Clockwork.Tests.MockFactories
 {
     public class IMoveableFactory
     {
-        public static IMoveable Create()
+        public static IMoveable Create(int angleInDegrees, int motionPerSecond)
         {
             var mock = Substitute.For<IMoveable>();
 
@@ -15,6 +15,9 @@ namespace Clockwork.Tests.MockFactories
             mock.Position.Returns(x => position);
 
             var motion = new MotionVector();
+            motion.MagnitudePerSecond = motionPerSecond;
+            motion.Angle.SetDegrees(angleInDegrees);
+
             mock.MotionVector.Returns(x => motion);
 
             return mock;

@@ -25,7 +25,7 @@ namespace Clockwork.Tests.Services
 
 
             var collisionManager = new CollisionManager();
-            collisionManager.Add(camera);
+            collisionManager.AddObject(camera);
             collisionManager.HandleCollisions();
 
             camera.Position.Left.Should().Be(newX);

@@ -2,7 +2,7 @@
 
 namespace Clockwork.Engine.Models.GameObjectInterfaces
 {
-    public interface IWithPosition
+    public interface IWithPosition : IGameObject
     {
         Rectangle Position { get; }
     }

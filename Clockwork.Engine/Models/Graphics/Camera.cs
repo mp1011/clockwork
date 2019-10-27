@@ -16,6 +16,10 @@ namespace Clockwork.Engine.Models.Graphics
             Bounds = bounds;
         }
 
+        public Camera(Size screenSize, Size bounds) : this(screenSize, new Rectangle(bounds))
+        {
+        }
+
         public Rectangle GetScreenPosition(Rectangle worldPosition)
         {
             return new Rectangle(

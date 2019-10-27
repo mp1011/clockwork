@@ -16,11 +16,9 @@ namespace Clockwork.Tests.Services
         public void ObjectCanMoveInAnyDirection(int angleInDegrees, int distancePerSecond, int newXAfterOneMinute, int newYAfterOneMinute)
         {
             var manager = DIRegistrar.GetInstance<MotionManager>();
-            var movingObject = IMoveableFactory.Create();
+            var movingObject = IMoveableFactory.Create(angleInDegrees, distancePerSecond);
 
-            movingObject.MotionVector.Angle.SetDegrees(angleInDegrees);
-            movingObject.MotionVector.MagnitudePerSecond = distancePerSecond;
-
+        
             manager.AddObject(movingObject);
             manager.ApplyMotion(TimeSpan.FromMinutes(1));
 

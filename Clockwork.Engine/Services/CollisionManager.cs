@@ -7,7 +7,7 @@ namespace Clockwork.Engine.Services
     {
         private ICollection<ICollidable> _collidableObjects = new List<ICollidable>();
 
-        public void Add(ICollidable collidableObject)
+        public void AddObject(ICollidable collidableObject)
         {
             _collidableObjects.Add(collidableObject);
         }

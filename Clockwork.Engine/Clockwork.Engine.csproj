@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\IBehavior.cs" />
+    <Compile Include="Behaviors\PositionRelativeTo.cs" />
     <Compile Include="DIRegistrar.cs" />
     <Compile Include="Extensions\DirectionExtensions.cs" />
     <Compile Include="Extensions\NumberExtensions.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="Models\Config\TileRuleSetConfig.cs" />
     <Compile Include="Models\Config\TileSetConfig.cs" />
     <Compile Include="Models\GameObjectInterfaces\ICollidable.cs" />
+    <Compile Include="Models\GameObjectInterfaces\IGameObject.cs" />
     <Compile Include="Models\GameObjectInterfaces\IMoveable.cs" />
     <Compile Include="Models\General\AnchorOrigin.cs" />
     <Compile Include="Models\General\Angle.cs" />
@@ -108,6 +111,7 @@
     <Compile Include="Services\Interfaces\IResourceLoader.cs" />
     <Compile Include="Services\Interfaces\IResourceStreamProvider.cs" />
     <Compile Include="Services\Interfaces\ITextureLoader.cs" />
+    <Compile Include="Services\LogicManager.cs" />
     <Compile Include="Services\MotionManager.cs" />
     <Compile Include="Services\ObjectLoaders\SceneLoader.cs" />
     <Compile Include="Services\ObjectLoaders\TileSetLoader.cs" />
