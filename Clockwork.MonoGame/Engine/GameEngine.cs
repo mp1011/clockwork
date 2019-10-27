@@ -136,14 +136,14 @@ namespace Clockwork.MonoGame.Engine
 
             SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
             var scene = _sceneManager.GetCurrentScene();
-            _renderService.RenderScene(scene);
+            var camera = _renderService.RenderScene(scene);
             SpriteBatch.End();
 
-            //var window = displayEngine.WindowPosition;
-            //var cameraPosition = displayEngine.Painter.Camera.Position;
-            //var scale = new Vector2((float)window.Width / (float)cameraPosition.Width, (float)window.Height / (float)cameraPosition.Height);
+            var windowBounds = Window.ClientBounds;
+            var cameraPosition = camera.Position;
+            var scale = new Vector2((float)windowBounds.Width / (float)cameraPosition.Width, (float)windowBounds.Height / (float)cameraPosition.Height);
 
-            Matrix m = Matrix.CreateScale(1f,1f, 1f);
+            Matrix m = Matrix.CreateScale(scale.X, scale.Y, 1f);
             GraphicsDevice.SetRenderTarget(null);
             GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.Red);
             SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.Default, RasterizerState.CullNone, null, m);

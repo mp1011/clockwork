@@ -16,7 +16,7 @@ namespace Clockwork.Engine.Services
 
         public Camera GetCameraForScene(Scene scene)
         {
-            return _camera ?? (_camera = new Camera(_graphicsInfoProvider.ScreenSize));
+            return _camera ?? (_camera = new Camera(_graphicsInfoProvider.ViewportSize));
         }
     }
 }

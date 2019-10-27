@@ -7,5 +7,7 @@ namespace Clockwork.Engine.Services.Interfaces
     public interface IGraphicsInfoProvider
     {
          Size ScreenSize { get; }
+
+         Size ViewportSize { get; }
     }
 }

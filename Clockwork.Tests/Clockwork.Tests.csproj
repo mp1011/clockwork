@@ -66,11 +66,15 @@
     <Compile Include="Implementations\BitmapTextureLoader.cs" />
     <Compile Include="Implementations\BitmapTexturePainter.cs" />
     <Compile Include="MockFactories\ICameraProviderFactory.cs" />
+    <Compile Include="MockFactories\IMoveableFactory.cs" />
     <Compile Include="MockFactories\ITexturePainterMockFactory.cs" />
     <Compile Include="Models\Graphics\CameraTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CollisionManagerTests.cs" />
     <Compile Include="Services\Graphics\RenderServiceTests.cs" />
+    <Compile Include="Services\LogicManagerTests.cs" />
     <Compile Include="Services\MapLoaderTests.cs" />
+    <Compile Include="Services\MotionManagerTests.cs" />
     <Compile Include="Services\SceneManagerTests.cs" />
     <Compile Include="Services\TileArrangerTests.cs" />
     <Compile Include="TestBase.cs" />

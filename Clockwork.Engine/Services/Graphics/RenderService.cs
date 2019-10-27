@@ -17,7 +17,7 @@ namespace Clockwork.Engine.Services.Graphics
             _cameraProvider = cameraProvider;
         }
 
-        public void RenderScene(Scene scene)
+        public Camera RenderScene(Scene scene)
         {
             var camera = _cameraProvider.GetCameraForScene(scene);
             foreach(var layer in scene.Layers)
@@ -27,6 +27,7 @@ namespace Clockwork.Engine.Services.Graphics
                     RenderObject(camera, displayable);
                 }
             }
+            return camera;
         }
 
         public void RenderObject(Camera camera, IDisplayable obj)

@@ -15,8 +15,8 @@ namespace Clockwork.Engine.Services.Resource
 #if DEBUG
             var assemblyLocation = new FileInfo(Assembly.GetExecutingAssembly().Location);
             var folder = assemblyLocation.Directory;
-
-            while (_contentDirectory == null || !_contentDirectory.Exists)
+             
+            while (_contentDirectory == null || !_contentDirectory.Exists || !_contentDirectory.GetFiles("Game.config").Any())
             {
                 _contentDirectory = new DirectoryInfo(Path.Combine(folder.FullName, "Clockwork.Engine", "Content"));
                 folder = folder.Parent;
@@ -43,8 +43,17 @@ namespace Clockwork.Engine.Services.Resource
         public FileInfo GetDevelopmentFilePath<T>(string key)
         {
 #if DEBUG
-            var folder = new DirectoryInfo(Path.Combine(_contentDirectory.FullName, GetFolder<T>()));
-            return folder.GetFiles(key + ".*").Single();
+            if (key != null)
+            {
+                var folder = new DirectoryInfo(Path.Combine(_contentDirectory.FullName, GetFolder<T>()));
+                return folder.GetFiles(key + ".*").Single();
+            }
+            else
+            {
+                var folder = _contentDirectory;
+                var fileName = typeof(T).Name.Replace("Config", "");
+                return folder.GetFiles(fileName + ".*").Single();
+            }
 #else
 
             throw new NotSupportedException("Development file paths are not supported in Release configuration");

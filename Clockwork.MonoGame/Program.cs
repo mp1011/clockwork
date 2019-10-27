@@ -16,7 +16,7 @@ namespace Clockwork.MonoGame
     {
         public static void Main(string[] args)
         {
-            //BootstrapModels();
+           // BootstrapModels();
             IOCInit();
             using (var game = DIRegistrar.GetInstance<GameEngine>())
                 game.Run();
@@ -48,6 +48,12 @@ namespace Clockwork.MonoGame
         {
             var jsonservice = DIRegistrar.GetInstance<NewtonsoftJsonService>();
             var streamProvider = DIRegistrar.GetInstance<DevelopmentFileStreamProvider>();
+
+            jsonservice.Write(new GameConfig
+            {
+                InitialScene = "testScene",
+                ViewportSize = new Size(320, 240),
+            }, streamProvider);
 
             jsonservice.Write(new SceneConfig
             {
