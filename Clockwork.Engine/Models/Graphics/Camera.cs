@@ -4,7 +4,7 @@ using Clockwork.Engine.Models.General;
 
 namespace Clockwork.Engine.Models.Graphics
 {
-    public class Camera : ICollidable
+    public class Camera : IWithPosition
     {
         public Rectangle Position { get; }
 

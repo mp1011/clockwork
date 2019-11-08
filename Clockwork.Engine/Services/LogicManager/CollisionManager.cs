@@ -16,7 +16,7 @@ namespace Clockwork.Engine.Services
         {
             foreach(var collidableObject in _collidableObjects)
             {
-                collidableObject.Position.KeepWithin(collidableObject.Bounds);
+
             }
         }
     }

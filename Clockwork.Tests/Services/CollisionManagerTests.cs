@@ -1,35 +1,36 @@
 ﻿using Clockwork.Engine;
+using Clockwork.Engine.Behaviors;
 using Clockwork.Engine.Models.General;
 using Clockwork.Engine.Models.Graphics;
 using Clockwork.Engine.Models.Scene;
 using Clockwork.Engine.Services;
+using Clockwork.Engine.Services.ObjectLoaders;
+using Clockwork.Tests.MockFactories;
 using FluentAssertions;
 using NUnit.Framework;
+using System;
 using System.Numerics;
 
 namespace Clockwork.Tests.Services
 {
     class CollisionManagerTests : TestBase
     {
-        [TestCase(0,0,0,0)]
-        [TestCase(-50, 0, 0, 0)]
-        [TestCase(-50, -50, 0, 0)]
-        [TestCase(190, -50, 150, 0)]
-        [TestCase(190,190, 150, 150)]
-        public void CameraRemainsInBounds(int x, int y, int newX, int newY)
+      
+
+        [Test]
+        public void ObjectCanCollideWithTiles()
         {
-            Scene scene = new Scene(new DisplayLayer(new Size(200, 200)));
+            var map = DIRegistrar.GetInstance<TileMapLoader>().Load("testmap");
 
-            Camera camera = new Camera(new Size(50, 50), new Rectangle(scene.Bounds));
-            camera.Position.UpperLeft = new Vector2(x, y);
+            var movingObject = ICollidableFactory.Create(0, 10);
+            movingObject.Position.Center = new Vector2(50, 50);
 
 
+            
             var collisionManager = new CollisionManager();
-            collisionManager.AddObject(camera);
-            collisionManager.HandleCollisions();
+            collisionManager.AddObject(movingObject);
 
-            camera.Position.Left.Should().Be(newX);
-            camera.Position.Top.Should().Be(newY);
+            Assert.Fail();
         }
     }
 }

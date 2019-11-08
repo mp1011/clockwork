@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviors\IBehavior.cs" />
+    <Compile Include="Behaviors\KeepWithin.cs" />
     <Compile Include="Behaviors\PositionRelativeTo.cs" />
     <Compile Include="DIRegistrar.cs" />
     <Compile Include="Extensions\DirectionExtensions.cs" />

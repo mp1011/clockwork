@@ -2,7 +2,7 @@
 
 namespace Clockwork.Engine.Models.GameObjectInterfaces
 {
-    public interface ICollidable : IWithPosition
+    public interface ICollidable : IMoveable
     {
         Rectangle Bounds { get; }
     }

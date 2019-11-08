@@ -66,6 +66,7 @@
     <Compile Include="Implementations\BitmapTextureLoader.cs" />
     <Compile Include="Implementations\BitmapTexturePainter.cs" />
     <Compile Include="MockFactories\ICameraProviderFactory.cs" />
+    <Compile Include="MockFactories\ICollidableFactory.cs" />
     <Compile Include="MockFactories\IMoveableFactory.cs" />
     <Compile Include="MockFactories\ITexturePainterMockFactory.cs" />
     <Compile Include="Models\Graphics\CameraTests.cs" />
