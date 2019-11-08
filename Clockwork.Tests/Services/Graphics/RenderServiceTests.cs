@@ -2,12 +2,14 @@
 using Clockwork.Engine.Models.General;
 using Clockwork.Engine.Models.Graphics;
 using Clockwork.Engine.Models.Scene;
+using Clockwork.Engine.Services;
 using Clockwork.Engine.Services.Factories;
 using Clockwork.Engine.Services.Graphics;
 using Clockwork.Engine.Services.ObjectLoaders;
 using Clockwork.Tests.MockFactories;
 using FluentAssertions;
 using NUnit.Framework;
+using System;
 
 namespace Clockwork.Tests.Services.Graphics
 {
@@ -107,6 +109,46 @@ namespace Clockwork.Tests.Services.Graphics
  
             drawable.Position.SetLeft(100);
             svc.RenderObject(camera, drawable);
+        }
+
+        [Test]
+        public void CanRenderAnimatedGraphic()
+        {
+            var animation = DIRegistrar.GetInstance<AnimationLoader>().Load("walk");
+            var logicManager = DIRegistrar.GetInstance<LogicManager>();
+            logicManager.Add(animation);
+
+            var graphic = new AnimatedGraphic(animation);
+
+            var msPerFrame = 100;
+            var totalMS = 0;
+        
+
+            var mockPainter = ITexturePainterMockFactory.Create(
+                (textureName, region, destination) =>
+                {
+                    if (totalMS < 500)
+                        region.Left.Should().Be(32);
+                    else if (totalMS < 1000)
+                        region.Left.Should().Be(64);
+                    else if (totalMS < 1500)
+                        region.Left.Should().Be(96);
+                    else if (totalMS < 2000)
+                        region.Left.Should().Be(128);
+                    else if (totalMS < 0)
+                        region.Left.Should().Be(32);
+                });
+
+            var camera = new Camera(new Size(320, 240), new Rectangle(0, 0, 1000, 1000));
+            var renderService = new RenderService(mockPainter, ICameraProviderFactory.Create(camera));
+
+            while (totalMS < 3000)
+            {
+                logicManager.Update(TimeSpan.FromMilliseconds(msPerFrame));
+                totalMS += msPerFrame;
+                renderService.RenderObject(camera, graphic);
+            }
+
         }
     }
 }

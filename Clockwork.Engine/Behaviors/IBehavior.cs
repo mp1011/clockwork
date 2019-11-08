@@ -3,8 +3,7 @@ using System;
 
 namespace Clockwork.Engine.Behaviors
 {
-    public interface IBehavior : IGameObject
+    public interface IBehavior : IUpdateable
     {
-        void Update(TimeSpan elapsedInFrame);
     }
 }

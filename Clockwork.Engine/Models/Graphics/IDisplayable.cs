@@ -4,6 +4,6 @@ namespace Clockwork.Engine.Models.Graphics
 {
     public interface IDisplayable : IWithPosition
     {
-        TextureSection[] Textures { get; }
+        ITextureSection[] Textures { get; }
     }
 }

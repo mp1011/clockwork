@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Miko/Documents/GitHub/clockwork/Clockwork.MonoGame/../Clockwork.Engine/Content/Textures/forest_tiles.png</SourceFile>
-  <SourceTime>2019-11-01T12:22:03.176299-04:00</SourceTime>
-  <DestFile>C:/Users/Miko/Documents/GitHub/clockwork/Clockwork.MonoGame/bin/../Clockwork.Engine/Content/Textures/forest_tiles.xnb</DestFile>
-  <DestTime>2019-11-01T12:36:32.1480013-04:00</DestTime>
+  <SourceFile>C:/Users/Miko/Documents/GitHub/clockwork/Clockwork.MonoGame/../Clockwork.Engine/Content/Textures/characters_7.png</SourceFile>
+  <SourceTime>2017-11-12T14:33:14-05:00</SourceTime>
+  <DestFile>C:/Users/Miko/Documents/GitHub/clockwork/Clockwork.MonoGame/bin/../Clockwork.Engine/Content/Textures/characters_7.xnb</DestFile>
+  <DestTime>2019-11-01T12:36:32.1870036-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

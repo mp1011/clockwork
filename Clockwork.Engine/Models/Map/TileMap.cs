@@ -10,7 +10,7 @@ namespace Clockwork.Engine.Models.Map
     {
         public ArrayGrid<Tile> Grid { get; }
 
-        public TextureSection[] Textures { get; }
+        public ITextureSection[] Textures { get; }
 
         public Rectangle Position { get; }
 

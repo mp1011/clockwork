@@ -2,7 +2,14 @@
 
 namespace Clockwork.Engine.Models.Graphics
 {
-    public class TextureSection
+    public interface ITextureSection
+    {
+        string TextureKey { get; }
+        Rectangle TextureRegion { get; }
+        Point Offset { get; }
+    }
+
+    public class TextureSection : ITextureSection
     {
         public string TextureKey { get; }
         public Rectangle TextureRegion { get; }
